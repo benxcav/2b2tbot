@@ -23,10 +23,23 @@ dbot.on("ready", async () => {
     bot.setControlState('forward', true) //bot goes forward for anti-afk PLEASE improve this in a pull request.
 
 });
+
 bot.on('login', () => {
     bot.chat(config.loginmessage) // message on login
     console.log(`Minecraft bot is ready!`);
 });
+
+//do "npm i https://github.com/Etiaro/mineflayer-antiafk" to install
+const antiafk = require("mineflayer-antiafk");
+
+bot.loadPlugin(antiafk);
+
+bot.on("spawn", () => {
+  bot.afk.setOptions({ fishing: false }); //disables fishing
+  bot.afk.start();
+	console.log("Minecraft bot ready.");
+});
+
 // bot.on('message', msg => { 
 //  dbot.guilds.get(config.guildid).channels.get(config.chatchannelid).send({embed: {
 //    color: 3447003,
